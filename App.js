@@ -1,26 +1,33 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
-import React, {useState} from 'react';
-import Header from './components/Header'
+import React, { useState } from "react";
+import Header from "./components/Header";
 import Task from "./components/Task";
+import AddTask from "./components/AddTask";
+import { v4 as uuidv4 } from "uuid";
 
 export default function App() {
-	const [tasks, setTasks] = useState([
+    const [tasks, setTasks] = useState([
         { task: "HTML I", done: true, id: 1 },
         { task: "CSS", done: true, id: 2 },
         { task: "Responsive design", done: true, id: 3 },
     ]);
 
+    const addTask = (text) => {
+        setTasks((prevTasks) => {
+            return [{ task: text, id: uuidv4() }, ...prevTasks];
+        });
+    };
+
     return (
         <SafeAreaView style={styles.container}>
-			<Header />
+            <Header />
             <View style={styles.content}>
+                <AddTask addTask={addTask} />
                 <View style={styles.list}>
                     <FlatList
                         data={tasks}
-                        renderItem={({ item }) => (
-							<Task item={item} />
-						)}
+                        renderItem={({ item }) => <Task item={item} />}
                     />
                 </View>
             </View>
@@ -34,11 +41,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
 
-	content: {
-		padding: 30,
-	},
+    content: {
+        padding: 30,
+    },
 
-	list: {
-		marginTop: 30,
-	}
+    list: {
+        marginTop: 30,
+    },
 });
