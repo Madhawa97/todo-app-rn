@@ -23,7 +23,7 @@ export default function App() {
 
     const addTask = (text) => {
         if (!text) {
-			Alert.alert('No tasks?', 'Please add a task', {text: 'OK'})
+			Alert.alert('No tasks?', 'Please add a task', [{text: 'OK'}])
         } else {
             setTasks((prevTasks) => {
                 return [{ task: text, id: uuidv4() }, ...prevTasks];
