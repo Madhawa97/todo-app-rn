@@ -1,9 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    SafeAreaView,
+    Alert,
+} from "react-native";
 import React, { useState } from "react";
 import Header from "./components/Header";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 
 export default function App() {
@@ -14,9 +22,13 @@ export default function App() {
     ]);
 
     const addTask = (text) => {
-        setTasks((prevTasks) => {
-            return [{ task: text, id: uuidv4() }, ...prevTasks];
-        });
+        if (!text) {
+			Alert.alert('No tasks?', 'Please add a task', {text: 'OK'})
+        } else {
+            setTasks((prevTasks) => {
+                return [{ task: text, id: uuidv4() }, ...prevTasks];
+            });
+        }
     };
 
     return (
