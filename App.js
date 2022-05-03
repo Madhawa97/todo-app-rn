@@ -33,6 +33,12 @@ export default function App() {
         }
     };
 
+	const deleteTask = (id) => {
+		setTasks((prevTasks) => {
+			return prevTasks.filter(task => task.id != id)
+		})
+	}
+
     return (
         <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
             <SafeAreaView style={styles.container}>
@@ -42,7 +48,9 @@ export default function App() {
                     <View style={styles.list}>
                         <FlatList
                             data={tasks}
-                            renderItem={({ item }) => <Task item={item} />}
+                            renderItem={({ item }) => <Task item={item} 
+								deleteTask = {deleteTask}
+							/>}
                         />
                     </View>
                 </View>
